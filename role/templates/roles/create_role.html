@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2>Role Creation</h2>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Role Name Field -->
+            <div>
+                <label for="{{ form.name.id_for_label }}">Role Name</label>
+                <input type="text" name="name" placeholder="Enter Role Name to be created" value="{{ form.name.value }}">
+                {% if form.name.errors %}
+                    <ul class="errors">
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <!-- Role Description Field -->
+            <div>
+                <label for="{{ form.description.id_for_label }}">Role Description:</label>
+                <textarea name="description" placeholder="Add Role Description">{{ form.description.value }}</textarea>
+                {% if form.description.errors %}
+                    <ul class="errors">
+                        {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Create Role</button>
+        </form>
+    </div>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Dashboard</title>
+    <!-- Add your CSS links here, if any -->
+</head>
+<body>
+
+<!-- Button to create a new role -->
+<div>
+    <a href="{% url 'create_role' %}" class="btn" style="background-color: #2E8B57; color: white; padding: 10px 20px; border-radius: 5px;">Create Role</a>
+</div>
+
+
+<!-- Display the list of roles -->
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <table style="width: 80%; border: 1px solid #ddd; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">SR No</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Role Name</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Role Description</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Edit</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for role in roles %}
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ forloop.counter }}</td> <!-- Serial number -->
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ role.name }}</td> <!-- Role name -->
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">{{ role.description }}</td> <!-- Role description -->
+                
+                <!-- Edit Button with Dark Yellow Background -->
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                    <a href="{% url 'update_role' role.id %}" class="btn" style="background-color: #FFAA00; color: black; padding: 5px 10px; border-radius: 3px;">Edit</a>
+                </td>
+                
+                <!-- Delete Button with Dark Red Background -->
+                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
+                    <a href="{% url 'delete_role' role.id %}" class="btn" style="background-color: #D32F2F; color: white; padding: 5px 10px; border-radius: 3px;">Delete</a>
+                </td>
+                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="border: 1px solid #ddd; padding: 8px; text-align: center;">No roles available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
